@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #display {
+            font-family: monospace;
+            line-height: 1.2;
+            min-height: 100px;
+            border: 1px solid #ffffff;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+    
+
+</head>
+<body>
+    <div class="display-6 text-bg-primary row-1 p-3" >
+        <h3>Bootstrap x jQuery</h3> </div>
+    <!-- display-6 = ukuran teks
+         text-bg-primary = warna text
+         row-1 = row 1
+         p-3 = padding 3 -->
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 mt-2 mb-1" style="text-align: left;" >
+                <!-- col-md-4 = column dibagi 4/12
+                     mt-2 = margin top 2
+                     mb-1 = margin bottom 1 -->
+                <strong>Form Control</strong>
+                <div class="mb-3 pt-1">
+                    <label for="labelWidth" class="form-label">Width</label>
+                    <div class="input-group">
+                        <button class="btn btn-primary " id="width-decrease">-</button>
+                        <input type="number" class="form-control" id="form-width"  min="0" placeholder="Input Width" >
+                        <button class="btn btn-primary " id="width-increase">+</button>
+                    </div>
+                </div>
+                <div class="mb-3 pt-1">
+                    <label for="labelHeight" class="form-label">Height</label>
+                    <div class="input-group">
+                        <button class="btn btn-primary"  id="height-decrease">-</button>
+                        <input type="number" class="form-control" id="form-height" min="0" placeholder="Input Height">
+                        <button class="btn btn-primary " id="height-increase">+</button>
+                    </div>
+                </div>
+                <div class="mb-3 pt-1">
+                    <label for="labelSize" class="form-label">Size (px)</label>
+                    <div class="input-group">
+                        <button class="btn btn-primary " id="size-decrease">-</button>
+                        <input type="number" class="form-control" id="form-size" min="0" placeholder="Input Size">
+                        <button class="btn btn-primary " id="size-increase" >+</button>
+                    </div>
+                </div>
+
+                <div class="mb-3 pt-1"> 
+                    <span> <label for="">Pattern</label> </span>
+                    <span > <label for="" style="color: rgb(172, 170, 170); font-style: italic;" >*maxlength 1 Letter</label> </span>
+                    <input type="Pattern" class="form-control" id="Pattern" maxlength="1">
+                </div>
+                <div class="mb-3 pt-1">
+                    <div> <label for="">Type</label></div>
+                
+                        <select name="type" id="type" class="form-control">
+                            <option value="square" id="square">Square</option>
+                            <option value="square-border" id="square-border"> Square border</option>
+                            <option value="triangle" id="triangle">Triangle</option>
+                        </select>
+                  
+                    
+                </div>
+
+
+                
+
+
+            </div>
+            <div  class="col-md-8 mt-2 mb-1 " style="text-align: center; " >
+                <strong>Display</strong>
+                <div id="display">
+
+                </div>
+            </div>
+
+    
+
+        
+            <div class="display-8 text-bg-secondary row-1 p-3" >Footer </div>
+        </div>
+
+    </div>
+     
+        
+    <script>
+
+        // DEFAULT YANG BIASA DIPAKE UNTUK JQUERY
+        // $(selector).action() 
+        // $ sign to define jquery access
+        // (selector) to query or find HTML elements
+        // a jquery .action() seperti klik scroll hide dll  
+        $(document).ready(function() {
+
+             $("#width-increase").click(function() {
+                let width = parseInt($("#form-width").val()) || 0;
+                $("#form-width").val(width += 1);
+                generatePattern();
+            
+        });
+
+            $("#width-decrease").click(function() {
+                let width = parseInt($("#form-width").val())  || 0;
+                if (width > 0) {
+                $("#form-width").val(width - 1);
+                generatePattern();
+        }
+        });
+
+            $("#height-increase").click(function(){
+                let Height = parseInt($("#form-height").val()) || 0;
+                $("#form-height").val(Height + 1);
+                generatePattern();
+
+            })
+
+            $("#height-decrease").click(function(){
+                let Height = parseInt($("#form-height").val()) || 0 ;
+                if (Height > 0) {
+                $("#form-height").val(Height - 1);
+                generatePattern();
+        }     
+        });
+
+            $("#size-increase").click(function(){
+                let size = parseInt($("#form-size").val()) || 0;
+                $("#form-size").val(size + 1)
+                generatePattern();
+            })
+        
+            $("#size-decrease").click(function(){
+                let size = parseInt($("#form-size").val() || 0);
+                if (size > 0)
+                $("#form-size").val(size -1)
+                generatePattern();
+            })
+
+
+            function generatePattern() {
+                let width = parseInt($("#form-width").val()) || 0; 
+                let height = parseInt($("#form-height").val()) || 0;
+                let size = parseInt($("#form-size").val()); 
+                let pattern = $("#Pattern").val();
+                let type = $("#type").val();
+                let display = $("#display");
+                let output = "";
+
+                
+
+                if (type === "square") {
+                    for (let i = 0; i < height; i++) {
+                        for (let j = 0; j < width; j++) {
+                            output += pattern + " ";
+                        }
+                        output += "<br>";
+                    }
+                } else if (type === "square-border") {
+                    for (let i = 0; i < height; i++) {
+                        for (let j = 0; j < width; j++) {
+                            if (i === 0 || i === height - 1 || j === 0 || j === width - 1) {
+                                output += pattern + " ";
+                            } else {
+                                output += "&nbsp;&nbsp;";
+                            }
+                        }
+                        output += "<br>";
+                    }
+                } else if (type === "triangle") {
+                    for (let i = 0; i < height; i++) {
+                        for (let j = 0; j <= i; j++) {
+                            output += pattern + " ";
+                        }
+                        output += "<br>";
+                    }
+                }
+
+                display.html(output).css('font-size', size + 'px');
+            }
+
+        
+            $("#Pattern,#type").change(function(){
+                generatePattern();
+            })
+            $("#Pattern").keyup(function(){
+                generatePattern();
+            })
+
+        
+
+
+    });
+    generatePattern();
+
+    </script>
+    
+</body>
+</html>
